@@ -19,7 +19,6 @@
         <module>foodie-dev-service</module>
         <module>foodie-dev-api</module>
         <module>foodie-dev-test</module>
-        <module>../design-principles</module>
     </modules>
     <!--packaging值有pom，jar和war-->
     <packaging>pom</packaging>
