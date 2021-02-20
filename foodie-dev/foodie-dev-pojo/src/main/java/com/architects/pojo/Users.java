@@ -1,9 +1,15 @@
 package com.architects.pojo;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.util.Date;
-
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Users {
     /**
      * 主键id 用户id

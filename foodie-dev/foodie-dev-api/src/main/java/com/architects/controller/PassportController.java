@@ -1,12 +1,13 @@
 package com.architects.controller;
 
+import com.architects.bo.UserBO;
 import com.architects.service.UserService;
+import com.architects.utils.JSONVO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 /**
  * @ClassName PassportController
@@ -24,20 +25,24 @@ public class PassportController {
 
 
     @GetMapping("/usernameIsExist")
-    public int usernameIsExist(@RequestParam String username){
+    public JSONVO usernameIsExist(@RequestParam String username){
 
         if (StringUtils.isBlank(username)) {
-            return 500;
+            return JSONVO.errorMsg("用户名不能为空");
         }
-
-
 
         boolean isExist = userService.queryUsername(username);
 
         if (isExist) {
-            return 500;
+            return JSONVO.errorMsg("用户名已存在");
         }
 
-        return  200;
+        return JSONVO.ok();
+    }
+
+    @PostMapping("/register")
+    public JSONVO register(@Valid @RequestBody UserBO userBO){
+        userService.createUser(userBO);
+        return JSONVO.ok();
     }
 }
