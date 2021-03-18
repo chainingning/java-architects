@@ -1,5 +1,6 @@
 package com.architects.pojo;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
@@ -25,6 +26,7 @@ public class Users {
     /**
      * 密码 密码
      */
+    @JsonIgnore
     private String password;
 
     /**
@@ -35,6 +37,7 @@ public class Users {
     /**
      * 真实姓名 真实姓名
      */
+    @JsonIgnore
     private String realname;
 
     /**

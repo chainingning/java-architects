@@ -3,6 +3,8 @@ package com.architects.controller;
 import com.architects.bo.UserBO;
 import com.architects.pojo.Users;
 import com.architects.service.UserService;
+import com.architects.utils.CookieUtil;
+import com.architects.utils.JSONUtil;
 import com.architects.utils.JSONVO;
 import com.architects.utils.MD5Util;
 import io.swagger.annotations.Api;
@@ -11,6 +13,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 import java.security.NoSuchAlgorithmException;
 
@@ -56,7 +60,7 @@ public class PassportController {
 
     @ApiOperation(value = "判断用户是否存在",notes ="判断用户是否存在",httpMethod = "GET")
     @GetMapping("/login")
-    public JSONVO login(@Valid @RequestBody UserBO userBO) throws NoSuchAlgorithmException {
+    public JSONVO login(@Valid @RequestBody UserBO userBO, HttpServletRequest req, HttpServletResponse res) throws NoSuchAlgorithmException {
 
         if (StringUtils.isBlank(userBO.getUsername())) {
             return JSONVO.errorMsg("用户名不能为空");
@@ -69,6 +73,8 @@ public class PassportController {
         if (users == null) {
             return JSONVO.errorMsg("用户或密码不正确");
         }
+
+        CookieUtil.setCookie(req,res,"user", JSONUtil.obj2String(users),true);
 
         return JSONVO.ok();
     }
