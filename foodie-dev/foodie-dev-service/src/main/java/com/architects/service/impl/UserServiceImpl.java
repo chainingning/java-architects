@@ -69,4 +69,19 @@ public class UserServiceImpl implements UserService {
         //返回出去的目的是为了页面显示
         return user;
     }
+
+    @Transactional(propagation = Propagation.SUPPORTS)
+    @Override
+    public Users queryUserForLogin(String username, String password) {
+        Example example = new Example(Users.class);
+        Example.Criteria criteria = example.createCriteria();
+        criteria.andEqualTo("username",username);
+        criteria.andEqualTo("password",password);
+
+        Users users = usersMapper.selectOneByExample(example);
+
+        return users;
+    }
+
+
 }
