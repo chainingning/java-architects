@@ -78,6 +78,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
         <!--   springboot 默认解析yml，如果使用了properties或者xml，需要依赖此配置 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>

@@ -58,7 +58,7 @@ public class PassportController {
         return JSONVO.ok();
     }
 
-    @ApiOperation(value = "判断用户是否存在",notes ="判断用户是否存在",httpMethod = "GET")
+    @ApiOperation(value = "登录",notes ="登录",httpMethod = "POST")
     @GetMapping("/login")
     public JSONVO login(@Valid @RequestBody UserBO userBO, HttpServletRequest req, HttpServletResponse res) throws NoSuchAlgorithmException {
 
@@ -76,6 +76,17 @@ public class PassportController {
 
         CookieUtil.setCookie(req,res,"user", JSONUtil.obj2String(users),true);
 
+        return JSONVO.ok();
+    }
+
+    @GetMapping("/logout")
+    public JSONVO logout(@Valid @RequestBody UserBO userBO, HttpServletRequest req, HttpServletResponse res) throws NoSuchAlgorithmException {
+
+        CookieUtil.deleteCookie(req,res,"user");
+
+        //TODO 清除购物车
+
+        //TODO 分布式会话中清除用户数据
         return JSONVO.ok();
     }
 }
