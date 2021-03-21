@@ -12,8 +12,10 @@ import com.architects.utils.DesensitizationUtil;
 import com.architects.vo.comment.CommentLevelCountVO;
 import com.architects.vo.comment.ItemCommentVO;
 import com.architects.vo.common.PagingGridVO;
+import com.architects.vo.shopcart.ShopCartVO;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -96,6 +98,18 @@ public class ItemServiceImpl implements ItemService {
 
         PageHelper.startPage(page, pageSize);
         return PageInfo2PagingGridResultConverter.convert(itemsMapper.selectItemByThirdCategory(map), page);
+    }
+
+    /**
+     * 根据规格ids查询最新的购物车中的商品数据（用于刷新渲染购物车中的商品数据）
+     */
+    @Override
+    public List<ShopCartVO> queryItemsBySpecIds(String specIds) {
+
+        String[] idArr = specIds.split(",");
+        List<String> specIdList = Lists.newArrayList(idArr);
+
+        return itemsMapper.selectItemBySpecIdList(specIdList);
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.architects.pojo.ItemsParam;
 import com.architects.pojo.ItemsSpec;
 import com.architects.vo.comment.CommentLevelCountVO;
 import com.architects.vo.common.PagingGridVO;
+import com.architects.vo.shopcart.ShopCartVO;
 
 import java.util.List;
 
@@ -79,7 +80,7 @@ public interface ItemService {
     /**
      * 根据规格ids查询最新的购物车中的商品数据（用于刷新渲染购物车中的商品数据）
      */
-//    List<ShopCartVO> queryItemsBySpecIds(String specIds);
+    List<ShopCartVO> queryItemsBySpecIds(String specIds);
 
     /**
      * 根据商品规格Id，获取规格对象的具体信息

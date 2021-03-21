@@ -3,6 +3,7 @@ package com.architects.mapper;
 import com.architects.my.mapper.MyMapper;
 import com.architects.pojo.Items;
 import com.architects.vo.item.SearchItemsVO;
+import com.architects.vo.shopcart.ShopCartVO;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -18,4 +19,7 @@ public interface ItemsMapper extends MyMapper<Items> {
      * 通过三级分类，查询商品列表
      */
     List<SearchItemsVO> selectItemByThirdCategory(@Param("paramsMap") Map<String, Object> map);
+
+
+    List<ShopCartVO> selectItemBySpecIdList(@Param("specIdList") List<String> specIdList);
 }
