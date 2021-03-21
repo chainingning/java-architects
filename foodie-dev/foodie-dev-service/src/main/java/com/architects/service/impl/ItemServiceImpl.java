@@ -8,6 +8,7 @@ import com.architects.pojo.ItemsParam;
 import com.architects.pojo.ItemsSpec;
 import com.architects.service.ItemService;
 import com.architects.service.converter.PageInfo2PagingGridResultConverter;
+import com.architects.utils.DesensitizationUtil;
 import com.architects.vo.comment.CommentLevelCountVO;
 import com.architects.vo.comment.ItemCommentVO;
 import com.architects.vo.common.PagingGridVO;
@@ -94,6 +95,11 @@ public class ItemServiceImpl implements ItemService {
 
         PageHelper.startPage(page,pageSize);
         List<ItemCommentVO> itemCommentVOS = itemsCommentsMapper.selectItemComment(map);
+
+        //信息脱敏
+        for (ItemCommentVO itemCommentVO : itemCommentVOS) {
+            itemCommentVO.setNickname(DesensitizationUtil.commonDisplay(itemCommentVO.getNickname()));
+        }
 
         return PageInfo2PagingGridResultConverter.convert(itemCommentVOS,page);
     }
