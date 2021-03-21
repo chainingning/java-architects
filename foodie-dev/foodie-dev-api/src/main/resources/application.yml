@@ -46,3 +46,8 @@ mapper:
   mappers: com.architects.my.mapper.MyMapper
   not-empty: false #在数据操作的时候判断为空时，是否加!=""
   identity: MYSQL
+
+# 分页插件配置
+pagehelper:
+  helper-dialect: mysql
+  support-methods-arguments: true
