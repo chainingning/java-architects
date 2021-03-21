@@ -74,7 +74,7 @@ public interface ItemService {
     /**
      * 搜索商品列表
      */
-//    PagingGridVO queryItem(Integer categoryId, String sort, Integer page, Integer pageSize);
+    PagingGridVO queryItem(Integer categoryId, String sort, Integer page, Integer pageSize);
 
     /**
      * 根据规格ids查询最新的购物车中的商品数据（用于刷新渲染购物车中的商品数据）

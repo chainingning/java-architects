@@ -13,4 +13,9 @@ public interface ItemsMapper extends MyMapper<Items> {
      * 查询商品列表
      */
     List<SearchItemsVO> selectItem(@Param("paramsMap") Map<String, Object> map);
+
+    /**
+     * 通过三级分类，查询商品列表
+     */
+    List<SearchItemsVO> selectItemByThirdCategory(@Param("paramsMap") Map<String, Object> map);
 }
