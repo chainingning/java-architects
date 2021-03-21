@@ -69,7 +69,7 @@ public interface ItemService {
      * @param page 当前页
      * @param pageSize 每页显示的记录数
      */
-//    PagingGridVO queryItem(String keyword, String sort, Integer page, Integer pageSize);
+    PagingGridVO queryItem(String keyword, String sort, Integer page, Integer pageSize);
 
     /**
      * 搜索商品列表

@@ -22,6 +22,7 @@ import tk.mybatis.mapper.entity.Example;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @ClassName ItmeServiceImpl
@@ -84,6 +85,19 @@ public class ItemServiceImpl implements ItemService {
 
 
         return itemsParamMapper.selectOneByExample(example);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public PagingGridVO queryItem(String keyword, String sort, Integer page, Integer pageSize) {
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("keyword", keyword);
+        map.put("sort", sort);
+
+        PageHelper.startPage(page, pageSize);
+        return PageInfo2PagingGridResultConverter.convert(itemsMapper.selectItem(map), page);
+
     }
 
     @Override
