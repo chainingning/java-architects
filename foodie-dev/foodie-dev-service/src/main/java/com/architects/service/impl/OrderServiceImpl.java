@@ -113,6 +113,7 @@ public class OrderServiceImpl implements OrderService {
                     .itemSpecName(itemSpec.getName())
                     .price(itemSpec.getPriceDiscount())
                     .build();
+            //TODO 不能循环入库
             orderItemsMapper.insert(orderItem);
 
             // 在用户提交订单以后，规格表中需要扣除库存
@@ -144,6 +145,25 @@ public class OrderServiceImpl implements OrderService {
                 .orderId(orderId).build();
 
         return build;
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRED)
+    public void updateOrderStatus(String orderId, Integer orderStatus) {
+        OrderStatus build = OrderStatus.builder()
+                .orderId(orderId)
+                .orderStatus(orderStatus).build();
+        orderStatusMapper.updateByPrimaryKeySelective(build);
+    }
+
+    @Override
+    public OrderStatus queryOrderStatusInfo(String orderId) {
+        return orderStatusMapper.selectByPrimaryKey(orderId);
+    }
+
+    @Override
+    public void closeOrder() {
+
     }
 
 }
