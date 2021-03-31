@@ -31,7 +31,7 @@ import static com.architects.controller.BaseController.PAY_RETURN_URL;
  * @Version V1.0
  **/
 //@Controller
-@Api(value = "订单相关",tags = {"订单相关操作"})
+@Api(value = "订单相关", tags = {"订单相关操作"})
 @RestController
 @RequestMapping("/orders")
 public class OrderController {
@@ -42,10 +42,9 @@ public class OrderController {
     private RestTemplate restTemplate;
 
 
-
-    @ApiOperation(value = "用户下单",notes = "创建订单",httpMethod = "POST")
+    @ApiOperation(value = "用户下单", notes = "创建订单", httpMethod = "POST")
     @PostMapping("/create")
-    public JSONVO create(SubmitOrderBO submitOrderBO){
+    public JSONVO create(SubmitOrderBO submitOrderBO) {
 
         // 判断支付方式
         Integer payMethod = submitOrderBO.getPayMethod();
@@ -81,7 +80,8 @@ public class OrderController {
 
         HttpEntity<MerchantOrdersVO> merchantOrdersVOHttpEntity = new HttpEntity<>(merchantOrdersVO, httpHeaders);
 
-        ResponseEntity<JSONVO> responseEntity = restTemplate.postForEntity(PAYMENT_URL,
+        ResponseEntity<JSONVO> responseEntity = restTemplate.postForEntity(
+                PAYMENT_URL,
                 merchantOrdersVOHttpEntity,
                 JSONVO.class);
         if (responseEntity.getStatusCode() != HttpStatus.OK) {
@@ -95,7 +95,7 @@ public class OrderController {
      * 通知订单支付（未支付）
      */
     @PostMapping("/notifyMerchantOrderPaid")
-    public Integer notifyMerchantOrderPaid(String merchantOrderId){
+    public Integer notifyMerchantOrderPaid(String merchantOrderId) {
         orderService.updateOrderStatus(merchantOrderId, OrderStatusEnum.WAIT_PAY.getType());
         return HttpStatus.OK.value();
     }
@@ -103,7 +103,7 @@ public class OrderController {
     /**
      * 获得支付状态
      *
-     * @param orderId　订单编号
+     * @param orderId 　订单编号
      */
     @PostMapping("getPaidOrderInfo")
     public JSONVO getPaidOrderInfo(String orderId) {
