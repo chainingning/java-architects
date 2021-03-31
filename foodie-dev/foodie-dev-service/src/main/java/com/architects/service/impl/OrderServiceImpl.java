@@ -11,6 +11,7 @@ import com.architects.pojo.*;
 import com.architects.service.AddressService;
 import com.architects.service.ItemService;
 import com.architects.service.OrderService;
+import com.architects.utils.DateUtil;
 import com.architects.vo.order.MerchantOrdersVO;
 import com.architects.vo.order.OrderVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @ClassName OrderServiceImpl
@@ -163,7 +165,33 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void closeOrder() {
+        // 查询所有未付款订单，判断时间是否超过（1天），超过则关闭交易
+        OrderStatus queryOrder = OrderStatus.builder()
+                .orderStatus(OrderStatusEnum.WAIT_PAY.getType())
+                .build();
+        List<OrderStatus> orderStatusList = orderStatusMapper.select(queryOrder);
 
+        for (OrderStatus orderStatus : orderStatusList) {
+            // 获得订单创建时间
+            Date createdTime = orderStatus.getCreatedTime();
+            // 和当前时间进行对比
+            int days = DateUtil.daysBetween(createdTime, new Date());
+            if (days >= 1) {
+                // 超过1天，关闭订单
+                doCloseOrder(orderStatus.getOrderId());
+            }
+        }
+    }
+
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    void doCloseOrder(String orderId) {
+        OrderStatus orderStatus = OrderStatus.builder()
+                .orderId(orderId)
+                .orderStatus(OrderStatusEnum.CLOSE.getType())
+                .closeTime(new Date())
+                .build();
+        orderStatusMapper.updateByPrimaryKeySelective(orderStatus);
     }
 
 }
