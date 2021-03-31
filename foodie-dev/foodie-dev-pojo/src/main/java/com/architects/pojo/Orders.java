@@ -1,9 +1,12 @@
 package com.architects.pojo;
 
+import lombok.Builder;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import java.util.Date;
 
+@Builder
 public class Orders {
     /**
      * 订单主键 同时也是订单编号

@@ -1,10 +1,13 @@
 package com.architects.pojo;
 
+import lombok.Builder;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Table(name = "order_items")
+@Builder
 public class OrderItems {
     /**
      * 主键id

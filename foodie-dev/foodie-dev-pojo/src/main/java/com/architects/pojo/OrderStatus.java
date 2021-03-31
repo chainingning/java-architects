@@ -1,11 +1,14 @@
 package com.architects.pojo;
 
+import lombok.Builder;
+
 import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
 @Table(name = "order_status")
+@Builder
 public class OrderStatus {
     /**
      * 订单ID 对应订单表的主键id

@@ -1,6 +1,7 @@
 package com.architects.controller;
 
 import com.architects.bo.ShopCartBO;
+import com.architects.enums.ResultEnum;
 import com.architects.utils.JSONVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -38,6 +39,22 @@ public class ShopCartController {
         log.info("shopCartQuery: [{}]", shopCartBO);
 
         // todo 前端用户在登录的情况下，添加商品到购物车，会同时在后端同步购物车到redis缓存
+
+        return JSONVO.ok();
+    }
+
+
+    @ApiOperation(value = "从购物车中删除商品", notes = "从购物车中删除商品", httpMethod = "POST")
+    @PostMapping("/del")
+    public JSONVO delete(@RequestParam String userId,
+                         @RequestParam String itemSpecId) {
+        log.info("userId: [{}], itemSpecId: [{}]", userId, itemSpecId);
+
+        if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(itemSpecId)) {
+            return JSONVO.errorMsg(ResultEnum.PARAMETER_CANT_EMPTY.getMessage());
+        }
+
+        // todo 用户在页面删除购物车中的商品数据，如果此时用户已经登录，则需要同步删除后端购物车项
 
         return JSONVO.ok();
     }
