@@ -35,7 +35,7 @@ public class BaseController {
      * 用户上传头像的位置
      */
     public static final String IMAGE_USER_FACE_LOCATION = File.separator + "home" +
-            File.separator + "yangxin" +
+            File.separator + "foodie" +
             File.separator + "Projects" +
             File.separator + "foodie-store";
 
